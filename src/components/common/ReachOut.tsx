@@ -47,7 +47,7 @@ export default function ReachOut({
           projects
         </a>
         <a
-          href="/resume-shwetapandya.pdf"
+          href="/resume.pdf"
           target="_blank"
           rel="noreferrer"
           className="hover:text-[var(--text-primary)] transition-all"

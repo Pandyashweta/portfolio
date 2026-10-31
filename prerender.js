@@ -29,7 +29,7 @@ async function runPrerender() {
     const routes = [
       { url: '/', title: 'Pandyashweta', desc: 'Website developed by Shweta to showcase her software development projects.' },
       { url: '/projects', title: 'Projects | Shweta Pandya', desc: 'Showcase of Shweta Pandya\'s UI/UX Design and Research projects.' },
-      { url: '/resume', title: 'resume-shwetapandya', desc: 'Resume of Shweta Pandya.' }
+      { url: '/resume', title: 'resume', desc: 'Resume of Shweta Pandya.' }
     ];
 
     // Add dynamic project detail routes

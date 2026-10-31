@@ -8,7 +8,7 @@ import NotFoundPage from "./pages/NotFound";
 
 function ResumeRedirect() {
   useEffect(() => {
-    window.location.replace("/resume-shwetapandya.pdf");
+    window.location.replace("/resume.pdf");
   }, []);
   return null;
 }

@@ -3,22 +3,32 @@
   "redirects": [
     {
       "source": "/resume",
-      "destination": "/shwetapandya-resume.pdf",
+      "destination": "/resume.pdf",
       "permanent": true
     },
     {
-      "source": "/resume.pdf",
-      "destination": "/shwetapandya-resume.pdf",
+      "source": "/resume-shwetapandya.pdf",
+      "destination": "/resume.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/shwetapandya-resume.pdf",
+      "destination": "/resume.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio-resume.pdf",
+      "destination": "/resume.pdf",
       "permanent": true
     },
     {
       "source": "/Pandya%20Shweta%20%20Resume.pdf",
-      "destination": "/shwetapandya-resume.pdf",
+      "destination": "/resume.pdf",
       "permanent": true
     },
     {
       "source": "/Pandya%20Shweta%20Resume.pdf",
-      "destination": "/shwetapandya-resume.pdf",
+      "destination": "/resume.pdf",
       "permanent": true
     }
   ],
