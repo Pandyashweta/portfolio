@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 
 export default function HomePage() {
   useEffect(() => {
-    document.title = "shwetapandya";
+    document.title = "Pandyashweta";
   }, []);
 
   return (
