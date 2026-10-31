@@ -4,7 +4,6 @@ import type { ProjectData } from "../../../types";
 import type { LayoutContext } from "../../../components/layout/Layout";
 import { parseMarkdown } from "../utils/markdown";
 import { getImageCaption } from "../utils/captions";
-import ThemeToggle from "../../../components/common/ThemeToggle";
 
 type StandardViewProps = Pick<LayoutContext, "leftColRef" | "rightColRef" | "handleScroll"> & {
   project: ProjectData;
@@ -36,22 +35,19 @@ export default function StandardView({ project, leftColRef, rightColRef, handleS
         onScroll={handleScroll}
         className="h-auto lg:h-full lg:min-h-0 subtle-scrollbar-left flex flex-col relative"
       >
-        {/* Sticky Header: Contains Title, Theme Toggle, and Back Button */}
+        {/* Sticky Header: Contains Title and Back Button */}
         <div className="sticky top-0 bg-[var(--bg-primary)]/95 backdrop-blur-sm z-20 pt-5 pb-0 flex flex-col gap-3 transition-colors duration-300">
           <div className="pl-6 pr-3 flex flex-row items-center justify-between gap-3">
             <h1 className="text-3xl sm:text-[38px] font-semibold tracking-wide text-[var(--text-primary)] leading-tight font-mono transition-colors duration-300">
               {project.title}
             </h1>
-            <div className="flex items-center gap-3 shrink-0">
-              <ThemeToggle />
-              <button
-                onClick={() => navigate(-1)}
-                aria-label="Back"
-                className="inline-flex items-center justify-center w-8 h-8 sm:w-8.5 sm:h-8.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 active:scale-95 rounded-full transition-all shadow-md shadow-black/20 cursor-pointer shrink-0"
-              >
-                <ArrowLeft className="w-4 h-4 text-[var(--bg-primary)]" strokeWidth={2.5} />
-              </button>
-            </div>
+            <button
+              onClick={() => navigate(-1)}
+              aria-label="Back"
+              className="inline-flex items-center justify-center w-8 h-8 sm:w-8.5 sm:h-8.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 active:scale-95 rounded-full transition-all shadow-md shadow-black/20 cursor-pointer shrink-0"
+            >
+              <ArrowLeft className="w-4 h-4 text-[var(--bg-primary)]" strokeWidth={2.5} />
+            </button>
           </div>
           <div className="h-px bg-[var(--border-color)] ml-6 mr-3 transition-colors duration-300" />
         </div>
