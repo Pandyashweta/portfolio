@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { figmaProjects } from "../../data/projects";
@@ -10,21 +11,11 @@ export default function ProjectDetail() {
   const { leftColRef, rightColRef, handleScroll, scrollToTop } = useOutletContext<LayoutContext>();
 
   // Ensure scroll is reset when landing on a project detail
-  if (typeof window !== "undefined") {
+  useEffect(() => {
     scrollToTop?.();
-  }
+  }, [projectId, scrollToTop]);
 
-  // Find project across all project collections
-  const allProjects = [
-    ...figmaProjects,
-  ];
-
-  // Remove duplicates
-  const uniqueProjects = allProjects.filter(
-    (proj, index, self) => self.findIndex((p) => p.id === proj.id) === index
-  );
-
-  const project = uniqueProjects.find((p) => p.id === projectId);
+  const project = figmaProjects.find((p) => p.id === projectId);
 
   if (!project) {
     return (

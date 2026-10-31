@@ -1,4 +1,3 @@
-import React from "react";
 import ReachOut from "../../../components/common/ReachOut";
 import AboutMe from "./AboutMe";
 import ThemeToggle from "../../../components/common/ThemeToggle";

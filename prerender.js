@@ -18,28 +18,14 @@ async function runPrerender() {
     const serverBundleUrl = pathToFileURL(serverBundlePath).href;
     const { 
       render, 
-      figmaProjects, 
-      researchProjects
+      figmaProjects
     } = await import(serverBundleUrl);
 
     // 2. Read index.html template from client build
     const indexHtmlPath = path.join(clientDistDir, 'index.html');
     const template = fs.readFileSync(indexHtmlPath, 'utf-8');
 
-    // 3. Compile all unique project detail IDs
-    const activeProjectIds = new Set();
-    
-    // Add figma detail routes
-    figmaProjects.forEach(p => activeProjectIds.add(p.id));
-    // Add research detail routes
-    researchProjects.forEach(p => activeProjectIds.add(p.id));
-
-    const projectList = [
-      ...figmaProjects,
-      ...researchProjects
-    ].filter((p, i, self) => self.findIndex(x => x.id === p.id) === i);
-
-    // 4. Define static routes to render
+    // 3. Static routes to render
     const routes = [
       { url: '/', title: 'shwetapandya', desc: 'Website developed by Shweta to showcase her software development projects.' },
       { url: '/projects', title: 'Projects | Shweta Pandya', desc: 'Showcase of Shweta Pandya\'s UI/UX Design and Research projects.' },
@@ -47,23 +33,20 @@ async function runPrerender() {
     ];
 
     // Add dynamic project detail routes
-    activeProjectIds.forEach(id => {
-      const proj = projectList.find(p => p.id === id);
-      if (proj) {
-        const title = `${proj.title} | Projects | Shweta Pandya`;
-        const desc = proj.description || (proj.aboutText ? proj.aboutText.slice(0, 160) : 'Detailed project review and showcase.');
-        routes.push({
-          url: `/projects/${id}`,
-          title,
-          desc,
-          project: proj
-        });
-      }
+    figmaProjects.forEach(proj => {
+      const title = `${proj.title} | Projects | Shweta Pandya`;
+      const desc = proj.description || (proj.aboutText ? proj.aboutText.slice(0, 160) : 'Detailed project review and showcase.');
+      routes.push({
+        url: `/projects/${proj.id}`,
+        title,
+        desc,
+        project: proj
+      });
     });
 
     console.log(`Starting SSG Pre-rendering for ${routes.length} routes...`);
 
-    // 5. Generate routes
+    // 4. Generate routes
     for (const route of routes) {
       const appHtml = render(route.url);
       
@@ -143,7 +126,7 @@ async function runPrerender() {
       // Insert our rich SEO tags in the head
       html = html.replace('</head>', `${metaTags}\n  </head>`);
 
-      // 6. Write output file
+      // 5. Write output file
       if (route.url === '/') {
         fs.writeFileSync(indexHtmlPath, html);
       } else {
@@ -155,7 +138,7 @@ async function runPrerender() {
       console.log(`✓ Pre-rendered: ${route.url}`);
     }
 
-    // 7. Generate sitemap.xml
+    // 6. Generate sitemap.xml
     const today = new Date().toISOString().split('T')[0];
     let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -175,7 +158,7 @@ async function runPrerender() {
     fs.writeFileSync(path.join(clientDistDir, 'sitemap.xml'), sitemapXml);
     console.log('✓ Generated sitemap.xml');
 
-    // 8. Generate robots.txt
+    // 7. Generate robots.txt
     const robotsTxt = `User-agent: *
 Allow: /
 Disallow: /dist/
@@ -185,7 +168,7 @@ Sitemap: https://pandyashweta.in/sitemap.xml
     fs.writeFileSync(path.join(clientDistDir, 'robots.txt'), robotsTxt);
     console.log('✓ Generated robots.txt');
 
-    // 9. Clean up server bundle to keep dist clean
+    // 8. Clean up server bundle to keep dist clean
     const serverDir = path.join(clientDistDir, 'server');
     if (fs.existsSync(serverDir)) {
       fs.rmSync(serverDir, { recursive: true, force: true });

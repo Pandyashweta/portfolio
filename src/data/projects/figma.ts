@@ -65,7 +65,7 @@ Histopedia is my concept of a UI/UX app. It allows customers to search for any m
 
 ## Outcome
 
-Histopedia an appp  that transforms traditional historical archives into a modern, user-friendly experience that encourages exploration, learning, and community engagement while preserving cultural heritage.`,
+Histopedia is an app that transforms traditional historical archives into a modern, user-friendly experience that encourages exploration, learning, and community engagement while preserving cultural heritage.`,
     images: [
       histopediaThumbnail,
       histopediaWelcome,
