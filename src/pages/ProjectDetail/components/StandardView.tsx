@@ -38,15 +38,15 @@ export default function StandardView({ project, leftColRef, rightColRef, handleS
         {/* Sticky Header: Contains Title and Back Button */}
         <div className="sticky top-0 bg-[var(--bg-primary)]/95 backdrop-blur-sm z-20 pt-5 pb-0 flex flex-col gap-3 transition-colors duration-300">
           <div className="pl-6 pr-3 flex flex-row items-center justify-between gap-3">
-            <h1 className="text-3xl sm:text-[38px] font-semibold tracking-tight text-[var(--text-primary)] leading-tight font-sans transition-colors duration-300">
+            <h1 className="text-3xl sm:text-[38px] font-semibold tracking-wide text-[var(--text-primary)] leading-tight font-mono transition-colors duration-300">
               {project.title}
             </h1>
             <button
               onClick={() => navigate(-1)}
-              className="inline-flex items-center gap-1.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 active:scale-95 font-semibold font-sans text-xs px-4 py-2 rounded-full transition-all shadow-md shadow-black/20 cursor-pointer shrink-0"
+              aria-label="Back"
+              className="inline-flex items-center justify-center w-8 h-8 sm:w-8.5 sm:h-8.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 active:scale-95 rounded-full transition-all shadow-md shadow-black/20 cursor-pointer shrink-0"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-[var(--bg-primary)]" strokeWidth={2.5} />
-              Back
+              <ArrowLeft className="w-4 h-4 text-[var(--bg-primary)]" strokeWidth={2.5} />
             </button>
           </div>
           <div className="h-px bg-[var(--border-color)] ml-6 mr-3 transition-colors duration-300" />
@@ -57,19 +57,19 @@ export default function StandardView({ project, leftColRef, rightColRef, handleS
           {/* Metadata Section */}
           <div className="space-y-4 text-xs font-sans text-[var(--text-secondary)] transition-colors duration-300">
             <div className="flex gap-4 items-start">
-              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-mono text-[10px] tracking-widest uppercase transition-colors duration-300">Year</span>
+              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-sans text-xs tracking-wider uppercase transition-colors duration-300">Year</span>
               <span className="text-[var(--text-primary)] transition-colors duration-300">{displayYear}</span>
             </div>
             <div className="flex gap-4 items-start">
-              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-mono text-[10px] tracking-widest uppercase transition-colors duration-300">Scope</span>
+              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-sans text-xs tracking-wider uppercase transition-colors duration-300">Scope</span>
               <span className="text-[var(--text-primary)] leading-relaxed transition-colors duration-300">{displayScope}</span>
             </div>
             <div className="flex gap-4 items-start">
-              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-mono text-[10px] tracking-widest uppercase transition-colors duration-300">Client</span>
+              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-sans text-xs tracking-wider uppercase transition-colors duration-300">Client</span>
               <span className="text-[var(--text-primary)] transition-colors duration-300">{displayClient}</span>
             </div>
             <div className="flex gap-4 items-start">
-              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-mono text-[10px] tracking-widest uppercase transition-colors duration-300">Duration</span>
+              <span className="w-20 shrink-0 font-medium text-[var(--text-muted)] font-sans text-xs tracking-wider uppercase transition-colors duration-300">Duration</span>
               <span className="text-[var(--text-primary)] transition-colors duration-300">{displayDuration}</span>
             </div>
 
@@ -155,7 +155,7 @@ export default function StandardView({ project, leftColRef, rightColRef, handleS
                   {/* Content Container */}
                   <div className="absolute top-0 inset-x-0 p-4 flex justify-between items-center w-full">
                     {/* Top Left: Clean text caption */}
-                    <span className="text-[10px] font-mono font-bold text-white uppercase tracking-wider drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
+                    <span className="text-[11px] font-sans font-semibold text-white uppercase tracking-wider drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
                       {caption}
                     </span>
 

@@ -7,7 +7,7 @@ export default function Showcase() {
       {/* UI/UX Design Section */}
       <div className="space-y-4">
         <div className="flex items-center gap-4">
-          <h3 className="text-[11px] font-bold text-[var(--text-secondary)] font-mono uppercase tracking-widest shrink-0 transition-colors duration-300">
+          <h3 className="text-xs font-semibold text-[var(--text-secondary)] font-sans uppercase tracking-wider shrink-0 transition-colors duration-300">
             UI/UX Design
           </h3>
           <div className="h-px bg-[var(--border-color)] flex-grow transition-colors duration-300" />

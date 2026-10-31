@@ -5,7 +5,7 @@ export default function NotFoundPage() {
   const navigate = useNavigate();
 
   return (
-    <main className="w-full min-h-screen bg-[var(--bg-primary)] flex items-center justify-center p-6 relative overflow-hidden text-center z-10 selection:bg-rose-500/20 selection:text-rose-200 transition-colors duration-300">
+    <main className="w-full min-h-screen bg-[var(--bg-primary)] flex items-center justify-center p-6 relative overflow-hidden text-center z-10 transition-colors duration-300">
       {/* Decorative Glow elements */}
       <div className="absolute inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.03),transparent_50%)]" />
       <div className="absolute inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.02),transparent_60%)]" />

@@ -1,6 +1,6 @@
 export default function AboutMe() {
   return (
-    <div className="space-y-5 text-sm sm:text-[14px] leading-relaxed font-sans text-[var(--text-secondary)] transition-colors duration-300">
+    <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm sm:text-[14px] leading-relaxed font-sans text-[var(--text-secondary)] transition-colors duration-300">
       <p>
         Hi, I'm Shweta.
       </p>

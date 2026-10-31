@@ -71,7 +71,7 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans antialiased selection:bg-rose-500/20 transition-colors duration-300 relative">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans antialiased transition-colors duration-300 relative">
       <Outlet context={{ leftColRef, rightColRef, handleScroll, scrollToTop }} />
     </div>
   );

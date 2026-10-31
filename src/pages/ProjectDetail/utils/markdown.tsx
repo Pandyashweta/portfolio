@@ -18,7 +18,7 @@ export function parseMarkdown(text: string) {
         // 2. Headings (## Heading)
         if (trimmed.startsWith('## ')) {
           return (
-            <h4 key={idx} className="text-xs sm:text-sm font-semibold text-[var(--text-primary)] tracking-tight pt-2 uppercase font-sans transition-colors duration-300">
+            <h4 key={idx} className="text-xs sm:text-sm font-semibold text-[var(--text-primary)] tracking-wide pt-2 uppercase font-mono transition-colors duration-300">
               {trimmed.replace('## ', '')}
             </h4>
           );

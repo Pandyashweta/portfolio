@@ -41,7 +41,7 @@ async function runPrerender() {
 
     // 4. Define static routes to render
     const routes = [
-      { url: '/', title: 'Shweta Pandya | Portfolio', desc: 'Website developed by Shweta to showcase her software development projects.' },
+      { url: '/', title: 'shwetapandya', desc: 'Website developed by Shweta to showcase her software development projects.' },
       { url: '/projects', title: 'Projects | Shweta Pandya', desc: 'Showcase of Shweta Pandya\'s UI/UX Design and Research projects.' }
     ];
 

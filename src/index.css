@@ -6,13 +6,28 @@
 @import "@fontsource/geist-mono/index.css";
 @import "@fontsource/geist-mono/400.css";
 @import "@fontsource/geist-mono/500.css";
+@import "@fontsource/geist-mono/600.css";
+@import "@fontsource/geist-mono/700.css";
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Zaslia";
+  src: url("/fonts/Zaslia.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --font-sans: "Geist Sans", sans-serif;
   --font-display: "Geist Sans", sans-serif;
   --font-mono: "Geist Mono", monospace;
   --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-zaslia: "Zaslia", serif;
+}
+
+.font-zaslia {
+  font-family: "Zaslia", serif;
 }
 
 :root {
@@ -25,12 +40,13 @@
   --text-secondary: #9496a1;
   --text-muted: #626575;
   --marquee-fade: #000000;
-  --selection-bg: rgba(244, 63, 94, 0.2);
-  --selection-text: #fca5a5;
+  --selection-bg: #ffffff;
+  --selection-text: #000000;
   --btn-bg: #141414;
   --btn-hover: #1f1f1f;
   --btn-text: #ffffff;
   --btn-border: #222222;
+  --scar-color: #8b0021;
 }
 
 .theme-white {
@@ -43,12 +59,39 @@
   --text-secondary: #71717a;
   --text-muted: #a1a1aa;
   --marquee-fade: #ffffff;
-  --selection-bg: rgba(244, 63, 94, 0.1);
-  --selection-text: #e11d48;
+  --selection-bg: #09090b;
+  --selection-text: #ffffff;
   --btn-bg: #f4f4f5;
   --btn-hover: #e4e4e7;
   --btn-text: #09090b;
   --btn-border: #e4e4e7;
+  --scar-color: #990022;
+}
+
+/* Universal selection styling based on theme */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* Dynamically styled selections based on the selected element's text color */
+.text-\[var\(--text-muted\)\]::selection,
+.text-\[var\(--text-muted\)\] *::selection {
+  background-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.text-\[var\(--text-secondary\)\]::selection,
+.text-\[var\(--text-secondary\)\] *::selection {
+  background-color: var(--text-secondary);
+  color: var(--bg-primary);
+}
+
+.text-\[var\(--text-primary\)\]::selection,
+.text-\[var\(--text-primary\)\] *::selection,
+.font-zaslia::selection {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 html, body {

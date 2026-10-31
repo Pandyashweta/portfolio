@@ -1,7 +1,9 @@
 export default function ReachOut({
   showScrollUp = false,
+  align = "center",
 }: {
   showScrollUp?: boolean;
+  align?: "center" | "start";
 }) {
   const handleScrollToTop = () => {
     window.scrollTo({
@@ -10,10 +12,12 @@ export default function ReachOut({
     });
   };
 
+  const justifyClass = align === "start" ? "justify-start" : "justify-center";
+
   return (
-    <div id="reach-out" className="scroll-mt-6 space-y-6 pt-4">
-      {/* Centered nav links */}
-      <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-xs sm:text-sm font-mono text-[var(--text-muted)] font-medium transition-colors duration-300">
+    <div id="reach-out" className="scroll-mt-6 space-y-4 pt-2">
+      {/* Nav links */}
+      <div className={`flex flex-wrap ${justifyClass} items-center gap-6 sm:gap-8 text-xs sm:text-sm font-mono text-[var(--text-muted)] font-medium transition-colors duration-300`}>
         <a
           href="https://www.linkedin.com/in/pandyashweta/"
           target="_blank"

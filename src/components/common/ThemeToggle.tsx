@@ -18,6 +18,9 @@ export default function ThemeToggle() {
       root.classList.remove("theme-white");
     }
     localStorage.setItem("portfolio_theme_v2", theme);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("portfolio-theme-change", { detail: theme }));
+    }
   }, [theme]);
 
   const toggleTheme = () => {

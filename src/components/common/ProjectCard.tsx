@@ -43,11 +43,11 @@ export default function ProjectCard({
         <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 flex flex-col items-start gap-2 text-left">
           {project.category && (
-            <span className="text-[9px] font-mono tracking-widest text-zinc-200 uppercase leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+            <span className="text-[10px] font-sans font-medium tracking-wide text-zinc-200 uppercase leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
               {project.category}
             </span>
           )}
-          <h4 className={`${resolvedTitleSize} font-semibold text-white font-sans tracking-tight leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]`}>
+          <h4 className={`${resolvedTitleSize} font-semibold text-white font-mono tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]`}>
             {displayTitle}
           </h4>
         </div>
