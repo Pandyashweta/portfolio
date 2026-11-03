@@ -13,7 +13,7 @@
     <link rel="manifest" href="/favicon_io/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <script>
       (function() {
         try {
@@ -22,8 +22,10 @@
           var saved = localStorage.getItem('portfolio_theme_v2');
           if (saved === 'light') {
             document.documentElement.classList.add('theme-white');
+            document.documentElement.classList.remove('dark');
           } else {
             document.documentElement.classList.remove('theme-white');
+            document.documentElement.classList.add('dark');
           }
         } catch (e) {}
       })();

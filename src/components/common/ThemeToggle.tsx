@@ -14,8 +14,10 @@ export default function ThemeToggle() {
     const root = document.documentElement;
     if (theme === "light") {
       root.classList.add("theme-white");
+      root.classList.remove("dark");
     } else {
       root.classList.remove("theme-white");
+      root.classList.add("dark");
     }
     localStorage.setItem("portfolio_theme_v2", theme);
     if (typeof window !== "undefined") {

@@ -17,5 +17,9 @@ export function getImageCaption(projectId: string, src: string, idx: number): st
   if (lowerSrc.includes("wishlist")) return "Wishlist, Checkout & Order Placed";
   if (lowerSrc.includes("subscribe")) return "Subscribe & Error";
 
+  // Coding Projects captions
+  if (lowerSrc.includes("futuristic_industrial") || lowerSrc.includes("automation")) return "Workflow Pipeline & Orchestration Architecture";
+  if (lowerSrc.includes("sculptural_red") || lowerSrc.includes("imaging")) return "Cellular Microscopy Analysis & Automated Segmentation";
+
   return `Screen ${idx + 1}`;
 }

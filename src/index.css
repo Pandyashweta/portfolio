@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
 @import "@fontsource/geist-sans/index.css";
 @import "@fontsource/geist-sans/400.css";
 @import "@fontsource/geist-sans/500.css";
@@ -20,10 +21,56 @@
 
 @theme {
   --font-sans: "Geist Sans", sans-serif;
-  --font-display: "Geist Sans", sans-serif;
-  --font-mono: "Geist Mono", monospace;
+  --font-display: "Archivo Black", Impact, sans-serif;
+  --font-mono: "Geist Mono", "Space Mono", monospace;
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-zaslia: "Zaslia", serif;
+  --font-hand: "Caveat", "Comic Sans MS", cursive;
+  --font-space: "Space Grotesk", sans-serif;
+}
+
+.ca-display {
+  font-family: "Archivo Black", Impact, sans-serif;
+  font-weight: 800;
+}
+
+.ca-hand {
+  font-family: "Caveat", "Comic Sans MS", cursive;
+}
+
+.ca-mono {
+  font-family: "Geist Mono", "Space Mono", monospace;
+}
+
+.ca-grid {
+  background-color: var(--bg-primary);
+}
+
+.ca-tape-strip {
+  opacity: 0.85;
+  filter: drop-shadow(0 1.5px 2px rgba(25, 21, 16, 0.22));
+}
+
+.ca-tape-strip::before {
+  content: "";
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 34%, rgba(255, 255, 255, 0.25) 60%, rgba(255, 255, 255, 0) 86%);
+  position: absolute;
+  inset: 0;
+}
+
+.ca-tape {
+  position: relative;
+}
+
+.ca-tape::after {
+  content: "";
+  border-top: 0 solid transparent;
+  border-bottom: 12px solid rgba(25, 21, 16, 0.15);
+  border-left: 12px solid transparent;
+  border-right: 0 solid transparent;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .font-zaslia {
@@ -46,6 +93,38 @@
   --btn-text: #ffffff;
   --btn-border: #222222;
   --scar-color: #8b0021;
+
+  /* Creative-Artsy Palette (Dark) */
+  --ca-surface: #0a0a0c;
+  --ca-ink: #f5f5f7;
+  --ca-gray: #a1a1aa;
+  --ca-chrome: #1c1c22;
+  --ca-tick: #2e2e38;
+  --ca-grid-dot: rgba(255, 255, 255, 0.08);
+  --ca-grid-line: rgba(255, 255, 255, 0.04);
+  --ca-blue: #2563eb;
+  --ca-cyan: #93c5fd;
+  --ca-yellow: #f5c044;
+  --ca-yellow-soft: #382e14;
+  --ca-magenta: #ec4899;
+  --ca-pink-soft: #4a1930;
+  --ca-purple: #3b2a54;
+  --ca-mint: #133a2e;
+
+  /* Inverted High-Contrast Footer (Dark Theme -> White Footer with Black Text) */
+  --footer-bg: #ffffff;
+  --footer-border: rgba(0, 0, 0, 0.08);
+  --footer-text-primary: #000000;
+  --footer-text-muted: #52525b;
+  --footer-pill-bg: #f4f4f5;
+  --footer-pill-border: #e4e4e7;
+  --footer-pill-text: #3f3f46;
+  --footer-pill-strong: #000000;
+  --footer-link-hover: #000000;
+  --footer-link-email: #800020;
+  --footer-dot-color: #800020;
+  --footer-dot-glow: rgba(128, 0, 32, 0.35);
+  --footer-shadow: none;
 }
 
 .theme-white {
@@ -64,6 +143,38 @@
   --btn-text: #09090b;
   --btn-border: #e4e4e7;
   --scar-color: #990022;
+
+  /* Creative-Artsy Palette (Light) */
+  --ca-surface: #fdfdfb;
+  --ca-ink: #191510;
+  --ca-gray: #857b69;
+  --ca-chrome: #ece3d1;
+  --ca-tick: #c0b49d;
+  --ca-grid-dot: rgba(25, 21, 16, 0.12);
+  --ca-grid-line: rgba(25, 21, 16, 0.05);
+  --ca-blue: #2b57d6;
+  --ca-cyan: #b7c6ef;
+  --ca-yellow: #f7c948;
+  --ca-yellow-soft: #f3e2ad;
+  --ca-magenta: #ff4d8d;
+  --ca-pink-soft: #ffc6da;
+  --ca-purple: #cfbbf5;
+  --ca-mint: #a9dfc6;
+
+  /* Inverted High-Contrast Footer (White Theme -> Black Footer with White Text) */
+  --footer-bg: #000000;
+  --footer-border: rgba(255, 255, 255, 0.12);
+  --footer-text-primary: #ffffff;
+  --footer-text-muted: #a1a1aa;
+  --footer-pill-bg: #141416;
+  --footer-pill-border: rgba(255, 255, 255, 0.14);
+  --footer-pill-text: #d4d4d8;
+  --footer-pill-strong: #ffffff;
+  --footer-link-hover: #ffffff;
+  --footer-link-email: #f43f5e;
+  --footer-dot-color: #800020;
+  --footer-dot-glow: rgba(128, 0, 32, 0.65);
+  --footer-shadow: none;
 }
 
 /* Universal selection styling based on theme */
@@ -99,60 +210,18 @@ html, body {
   transition: background-color 0.3s ease;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbars - only active on desktop (lg: screen width >= 1024px) */
-@media (min-width: 1024px) {
-  /* Custom scrollbar for left side - placed on the left side, completely invisible */
-  .subtle-scrollbar-left {
-    direction: rtl; /* Puts scrollbar on the left */
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none; /* Hide for Firefox */
-    -ms-overflow-style: none; /* Hide for IE/Edge */
-    will-change: scroll-position;
-    -webkit-overflow-scrolling: touch;
-  }
-  .subtle-scrollbar-left > * {
-    direction: ltr; /* Keeps content direction left-to-right */
-  }
-  .subtle-scrollbar-left::-webkit-scrollbar {
-    display: none; /* Hide for Chrome, Safari, and Opera */
-    width: 0;
-    height: 0;
-  }
-
-  /* Custom scrollbar for right side - placed on the right side, completely invisible */
-  .subtle-scrollbar-right {
-    direction: ltr;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none; /* Hide for Firefox */
-    -ms-overflow-style: none; /* Hide for IE/Edge */
-    will-change: scroll-position;
-    -webkit-overflow-scrolling: touch;
-  }
-  .subtle-scrollbar-right::-webkit-scrollbar {
-    display: none; /* Hide for Chrome, Safari, and Opera */
-    width: 0;
-    height: 0;
-  }
-}
-
-/* Custom minimal dark scrollbar */
+/* Custom minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(120, 120, 120, 0.25);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(120, 120, 120, 0.45);
 }

@@ -16,10 +16,12 @@ async function runPrerender() {
       throw new Error(`Server bundle not found at ${serverBundlePath}. Run vite build --ssr first.`);
     }
     const serverBundleUrl = pathToFileURL(serverBundlePath).href;
-    const { 
-      render, 
+    const {
+      render,
+      allProjects,
       figmaProjects
     } = await import(serverBundleUrl);
+    const projectList = allProjects || figmaProjects;
 
     // 2. Read index.html template from client build
     const indexHtmlPath = path.join(clientDistDir, 'index.html');
@@ -28,12 +30,14 @@ async function runPrerender() {
     // 3. Static routes to render
     const routes = [
       { url: '/', title: 'Pandyashweta', desc: 'Website developed by Shweta to showcase her software development projects.' },
-      { url: '/projects', title: 'Projects | Shweta Pandya', desc: 'Showcase of Shweta Pandya\'s UI/UX Design and Research projects.' },
+      { url: '/projects', title: 'Work | Shweta Pandya', desc: 'Showcase of Shweta Pandya\'s UI/UX Design and Engineering projects.' },
+      { url: '/projects/category/ui-ux', title: 'UI/UX Projects | Shweta Pandya', desc: 'UI/UX Design and Case Studies by Shweta Pandya.' },
+      { url: '/projects/category/coding', title: 'Coding Projects | Shweta Pandya', desc: 'Engineering and Coding Projects by Shweta Pandya.' },
       { url: '/resume', title: 'resume', desc: 'Resume of Shweta Pandya.' }
     ];
 
     // Add dynamic project detail routes
-    figmaProjects.forEach(proj => {
+    projectList.forEach(proj => {
       const title = `${proj.title} | Projects | Shweta Pandya`;
       const desc = proj.description || (proj.aboutText ? proj.aboutText.slice(0, 160) : 'Detailed project review and showcase.');
       routes.push({

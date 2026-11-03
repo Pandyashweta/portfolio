@@ -1,6 +1,6 @@
 export default function AboutMe() {
   return (
-    <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm sm:text-[14px] leading-relaxed font-sans text-[var(--text-secondary)] transition-colors duration-300">
+    <div className="space-y-2.5 sm:space-y-3 text-xs sm:text-[13px] lg:text-[13.5px] leading-relaxed font-sans text-[var(--text-secondary)] transition-colors duration-300">
       <p>
         Hi, I'm Shweta.
       </p>
@@ -22,16 +22,6 @@ export default function AboutMe() {
       </p>
       <p>
         Outside of work, I'm usually coding, learning something new, sketching, editing videos, reading, writing, or exploring whatever interests me that week. I like reading books, that's one of my consistent hobby.
-      </p>
-      <p>
-        I'm open to{" "}
-        <span className="font-semibold text-[var(--text-primary)]">new roles, collaborations, and opportunities</span>. Feel free to explore my work or reach out at{" "}
-        <a
-          href="mailto:pandyashweta.in@gmail.com"
-          className="text-[var(--text-primary)] font-medium hover:opacity-85 transition-all border-b border-[var(--text-muted)] hover:border-[var(--text-primary)] pb-0.5"
-        >
-          pandyashweta.in@gmail.com
-        </a>
       </p>
     </div>
   );

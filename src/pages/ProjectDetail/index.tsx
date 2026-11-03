@@ -1,43 +1,37 @@
 import { useEffect } from "react";
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { figmaProjects } from "../../data/projects";
-import type { LayoutContext } from "../../components/layout/Layout";
+import { allProjects } from "../../data/projects";
 import StandardView from "./components/StandardView";
 
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
-  const { leftColRef, rightColRef, handleScroll, scrollToTop } = useOutletContext<LayoutContext>();
 
-  // Ensure scroll is reset when landing on a project detail
+  // Reset scroll to top cleanly whenever the active project changes
   useEffect(() => {
-    scrollToTop?.();
-  }, [projectId, scrollToTop]);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+  }, [projectId]);
 
-  const project = figmaProjects.find((p) => p.id === projectId);
+  const project = allProjects.find((p) => p.id === projectId);
 
   if (!project) {
     return (
-      <main className="w-full h-screen flex flex-col items-center justify-center text-center bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
-        <h1 className="text-2xl font-bold mb-4 font-sans">Project not found</h1>
+      <main className="w-full h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex flex-col items-center justify-center text-center px-6">
+        <h1 className="text-3xl font-bold mb-4 ca-mono">Project not found</h1>
         <button
-          onClick={() => navigate("/")}
-          aria-label="Back to home"
-          className="inline-flex items-center justify-center w-9 h-9 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 active:scale-95 rounded-full transition-all shadow-md shadow-black/20 cursor-pointer"
+          onClick={() => navigate("/projects")}
+          aria-label="Back to projects"
+          className="ca-mono inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] bg-[var(--btn-bg)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] active:scale-95 transition-all shadow-sm [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] cursor-pointer border border-[var(--border-color)]"
         >
-          <ArrowLeft className="w-4 h-4 text-[var(--bg-primary)]" strokeWidth={2.5} />
+          <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
+          <span>Back to Projects</span>
         </button>
       </main>
     );
   }
 
-  return (
-    <StandardView
-      project={project}
-      leftColRef={leftColRef}
-      rightColRef={rightColRef}
-      handleScroll={handleScroll}
-    />
-  );
+  return <StandardView project={project} />;
 }

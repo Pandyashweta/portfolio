@@ -15,4 +15,4 @@ export function render(url: string) {
 }
 
 // Dynamic routing exports for prerender script
-export { figmaProjects } from "./data/projects";
+export { figmaProjects, codingProjects, allProjects } from "./data/projects";
