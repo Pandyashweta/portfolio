@@ -1,4 +1,4 @@
-import histopediaThumbnail from "../../assets/images/histopedia/histopedia.png";
+import histopediaThumbnail from "../../assets/images/histopedia/histopedia-dark.png";
 import histopediaWelcome from "../../assets/images/histopedia/Welcome, log in, Sign in, Verify.png";
 import histopediaHome from "../../assets/images/histopedia/home.png";
 import histopediaCommunity from "../../assets/images/histopedia/Community Page.png";
@@ -16,7 +16,8 @@ export const figmaProjects: ProjectData[] = [
   {
     id: "histopedia",
     title: "Histopedia",
-    category: "Figma • UI/UX Design & History App",
+    category: "UI/UX Design • History App",
+    subfolder: "uiux",
     image: histopediaThumbnail,
     aspectClass: "aspect-[16/10]",
     description: "An interactive digital platform designed for exploring world history through maps, timelines, and community discussions.",
@@ -27,13 +28,13 @@ export const figmaProjects: ProjectData[] = [
     role: "UI/UX & Researcher",
     tags: ["EdTech", "Interactive Maps", "Community"],
     theme: {
-      bg: "#f1f5f9", // Solid Greyish (100% Opaque, Not Transparent)
-      text: "#0f172a",
-      textMuted: "#334155",
-      badgeBg: "#0f172a",
-      badgeText: "#ffffff",
-      borderColor: "#0f172a",
-      dotColor: "#0f172a",
+      bg: "#18181b", // Solid Obsidian Dark (100% Opaque, No Grey)
+      text: "#ffffff",
+      textMuted: "rgba(255, 255, 255, 0.88)",
+      badgeBg: "#ffffff",
+      badgeText: "#18181b",
+      borderColor: "#ffffff",
+      dotColor: "#ffffff",
     },
     facts: [
       { label: "Role", value: "UI/UX & Researcher", color: "#b7c6ef", rotation: "-rotate-2", tapeSide: "left" },
@@ -82,7 +83,8 @@ Histopedia is an app that transforms traditional historical archives into a mode
   {
     id: "eau-de-perfume",
     title: "EAU DE PERFUME",
-    category: "Figma • UI/UX Design & Luxury E-Commerce",
+    category: "UI/UX Design • Luxury E-Commerce",
+    subfolder: "uiux",
     image: perfumeThumbnail,
     aspectClass: "aspect-[16/10]",
     description: "A luxury fragrance e-commerce concept designed to deliver a premium online shopping experience.",

@@ -1,6 +1,7 @@
-import { figmaProjects } from "./figma";
 import { codingProjects } from "./coding";
+import { figmaProjects } from "./figma";
+import type { ProjectData } from "../../types";
 
-export { figmaProjects } from "./figma";
-export { codingProjects } from "./coding";
-export const allProjects = [...figmaProjects, ...codingProjects];
+export { figmaProjects };
+export { codingProjects, developerSubfolders } from "./coding";
+export const allProjects = [...codingProjects, ...figmaProjects];

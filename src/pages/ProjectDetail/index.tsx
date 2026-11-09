@@ -24,10 +24,25 @@ export default function ProjectDetail() {
         <button
           onClick={() => navigate("/projects")}
           aria-label="Back to projects"
-          className="ca-mono inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] bg-[var(--btn-bg)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] active:scale-95 transition-all shadow-sm [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] cursor-pointer border border-[var(--border-color)]"
+          title="Back to projects"
+          className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none shrink-0"
         >
-          <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
-          <span>Back to Projects</span>
+          <svg
+            viewBox="0 0 36 36"
+            className="absolute inset-0 w-full h-full fill-[var(--bg-card)] stroke-[var(--border-color)] group-hover:fill-[var(--text-primary)] group-hover:stroke-[var(--text-primary)]"
+            style={{ overflow: "visible" }}
+          >
+            <polygon
+              points="0.75,9.5 9.5,0.75 35.25,0.75 35.25,35.25 0.75,35.25"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+            />
+          </svg>
+          <ArrowLeft
+            className="relative z-10 w-4 h-4 text-[var(--text-primary)] group-hover:text-[var(--bg-primary)]"
+            strokeWidth={2.5}
+          />
         </button>
       </main>
     );

@@ -26,6 +26,7 @@ export interface ProjectData {
   id: string;
   title: string;
   category: string;
+  subfolder?: string;
   image: string;
   aspectClass: string;
   spanClass?: string;

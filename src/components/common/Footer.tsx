@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { CREATIVE_PORTFOLIO_URL } from "../../data/links";
 
 interface FooterProps {
   compact?: boolean;
@@ -176,12 +177,14 @@ export default function Footer({ compact = false }: FooterProps) {
                 Work
               </Link>
               <a
-                href="mailto:pandyashweta.in@gmail.com"
+                href={CREATIVE_PORTFOLIO_URL}
+                target="_blank"
+                rel="noreferrer"
                 className={`transition-colors duration-200 ${
                   isWhiteTheme ? "hover:text-white" : "hover:text-black"
                 }`}
               >
-                Contact
+                Creative
               </a>
             </div>
           </div>

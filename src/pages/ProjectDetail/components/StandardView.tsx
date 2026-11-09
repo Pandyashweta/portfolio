@@ -1,5 +1,6 @@
+import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import type { ProjectData } from "../../../types";
 import { allProjects } from "../../../data/projects";
 import { getImageCaption } from "../utils/captions";
@@ -36,11 +37,58 @@ export default function StandardView({ project }: StandardViewProps) {
     ? project.images
     : [project.image];
 
-  // Other projects for the "more projects" section
-  const otherProjects = allProjects.filter((p) => p.id !== project.id);
   const isFigma = project.category?.toLowerCase().includes("figma") || project.category?.toLowerCase().includes("ui/ux");
-  const backCategoryUrl = isFigma ? "/projects?category=uiux" : "/projects?category=coding";
-  const backCategoryLabel = isFigma ? "UI/UX WORK" : "CODING WORK";
+  const backCategoryUrl = isFigma
+    ? "/projects?category=uiux"
+    : project.subfolder
+    ? `/projects?category=developer&sub=${project.subfolder}`
+    : "/projects?category=developer";
+  const backCategoryLabel = isFigma ? "UI/UX WORK" : "DEVELOPER WORK";
+
+  // Prioritize related projects in the same discipline first
+  const sameCategoryProjects = allProjects.filter(
+    (p) => p.id !== project.id && (isFigma ? (p.category?.toLowerCase().includes("figma") || p.category?.toLowerCase().includes("ui/ux")) : (!p.category?.toLowerCase().includes("figma") && !p.category?.toLowerCase().includes("ui/ux")))
+  );
+  const differentCategoryProjects = allProjects.filter(
+    (p) => p.id !== project.id && (isFigma ? (!p.category?.toLowerCase().includes("figma") && !p.category?.toLowerCase().includes("ui/ux")) : (p.category?.toLowerCase().includes("figma") || p.category?.toLowerCase().includes("ui/ux")))
+  );
+  const otherProjects = [...sameCategoryProjects, ...differentCategoryProjects];
+
+  // Lightbox Modal State
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+
+  const handleCloseModal = useCallback(() => {
+    setSelectedImageIndex(null);
+  }, []);
+
+  const handlePrevImage = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setSelectedImageIndex((prev) => (prev !== null ? (prev - 1 + galleryImages.length) % galleryImages.length : null));
+  }, [galleryImages.length]);
+
+  const handleNextImage = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setSelectedImageIndex((prev) => (prev !== null ? (prev + 1) % galleryImages.length : null));
+  }, [galleryImages.length]);
+
+  useEffect(() => {
+    if (selectedImageIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleCloseModal();
+      if (e.key === "ArrowLeft") handlePrevImage();
+      if (e.key === "ArrowRight") handleNextImage();
+    };
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedImageIndex, handleCloseModal, handlePrevImage, handleNextImage]);
 
   return (
     <main className="w-full min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] text-left transition-colors duration-300 relative z-10 px-4 pb-24 pt-6 sm:px-8 sm:pt-8 lg:px-12 xl:px-16 selection:bg-[var(--text-primary)] selection:text-[var(--bg-primary)]">
@@ -49,10 +97,25 @@ export default function StandardView({ project }: StandardViewProps) {
         <button
           onClick={() => navigate(backCategoryUrl)}
           aria-label={`Back to ${backCategoryLabel}`}
-          className="ca-mono inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] bg-[var(--btn-bg)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] active:scale-95 transition-all shadow-sm [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] cursor-pointer border border-[var(--border-color)]"
+          title={`Back to ${backCategoryLabel}`}
+          className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none shrink-0"
         >
-          <ArrowLeft className="w-3.5 h-3.5" strokeWidth={2.5} />
-          <span>{backCategoryLabel}</span>
+          <svg
+            viewBox="0 0 36 36"
+            className="absolute inset-0 w-full h-full fill-[var(--bg-card)] stroke-[var(--border-color)] group-hover:fill-[var(--text-primary)] group-hover:stroke-[var(--text-primary)]"
+            style={{ overflow: "visible" }}
+          >
+            <polygon
+              points="0.75,9.5 9.5,0.75 35.25,0.75 35.25,35.25 0.75,35.25"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+            />
+          </svg>
+          <ArrowLeft
+            className="relative z-10 w-4 h-4 text-[var(--text-primary)] group-hover:text-[var(--bg-primary)]"
+            strokeWidth={2.5}
+          />
         </button>
 
         <div className="flex items-center gap-4 sm:gap-6">
@@ -134,8 +197,7 @@ export default function StandardView({ project }: StandardViewProps) {
       {/* Main Featured Hero Image Showcase (Cleanly aligned with max-w-7xl grid, no shadow) */}
       <div className="max-w-7xl mx-auto mt-10 sm:mt-14">
         <div
-          className="relative overflow-hidden border-4 bg-[var(--ca-surface)] h-[45vh] sm:h-[65vh] lg:h-[75vh] w-full"
-          style={{ borderColor: "var(--ca-ink)" }}
+          className="relative overflow-hidden border border-[var(--ca-ink)]/30 bg-[var(--ca-surface)] h-[45vh] sm:h-[65vh] lg:h-[75vh] w-full"
         >
           <img
             src={project.image}
@@ -151,14 +213,10 @@ export default function StandardView({ project }: StandardViewProps) {
         <div className="flex flex-col">
           <div className="flex items-center gap-3">
             <span className="ca-mono text-xs font-bold uppercase tracking-widest text-[var(--ca-ink)]/60">01</span>
-            <p className="ca-hand text-3xl sm:text-4xl text-[var(--ca-ink)]">
-              the challenge
-            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--ca-ink)]">
+              The Challenge
+            </h2>
           </div>
-          <svg viewBox="0 0 64 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" className="mt-1 h-3 w-24 text-[var(--ca-ink)] opacity-80" aria-hidden="true">
-            <path d="M3 4c18-3 40-3 58 0" />
-            <path d="M9 9c14-2.5 32-2.5 46 0" />
-          </svg>
           <p className="mt-5 text-base leading-relaxed text-[var(--ca-ink)]/85 font-sans">
             {challengeText}
           </p>
@@ -168,14 +226,10 @@ export default function StandardView({ project }: StandardViewProps) {
         <div className="flex flex-col">
           <div className="flex items-center gap-3">
             <span className="ca-mono text-xs font-bold uppercase tracking-widest text-[var(--ca-ink)]/60">02</span>
-            <p className="ca-hand text-3xl sm:text-4xl text-[var(--ca-ink)]">
-              my approach
-            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--ca-ink)]">
+              My Approach
+            </h2>
           </div>
-          <svg viewBox="0 0 64 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" className="mt-1 h-3 w-24 text-[var(--ca-ink)] opacity-80" aria-hidden="true">
-            <path d="M3 4c18-3 40-3 58 0" />
-            <path d="M9 9c14-2.5 32-2.5 46 0" />
-          </svg>
           <p className="mt-5 text-base leading-relaxed text-[var(--ca-ink)]/85 font-sans">
             {approachText}
           </p>
@@ -190,7 +244,7 @@ export default function StandardView({ project }: StandardViewProps) {
                   rel="noreferrer"
                   className="ca-mono inline-flex items-center gap-2 bg-[var(--ca-ink)] text-[var(--ca-surface)] px-4 py-2.5 text-xs font-bold uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] shadow-md"
                 >
-                  <span>{project.url.includes("figma") ? "Figma File" : "Live Site"}</span>
+                  <span>{project.url.includes("figma") ? "Figma File" : project.url.includes("github") ? "GitHub Repo" : "Live Site"}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               )}
@@ -215,14 +269,10 @@ export default function StandardView({ project }: StandardViewProps) {
         <div className="flex flex-col">
           <div className="flex items-center gap-3">
             <span className="ca-mono text-xs font-bold uppercase tracking-widest text-[var(--ca-ink)]/60">03</span>
-            <p className="ca-hand text-3xl sm:text-4xl text-[var(--ca-ink)]">
-              the results
-            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--ca-ink)]">
+              The Results
+            </h2>
           </div>
-          <svg viewBox="0 0 64 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" className="mt-1 h-3 w-24 text-[var(--ca-ink)] opacity-80" aria-hidden="true">
-            <path d="M3 4c18-3 40-3 58 0" />
-            <path d="M9 9c14-2.5 32-2.5 46 0" />
-          </svg>
           <p className="mt-5 text-base leading-relaxed text-[var(--ca-ink)]/85 font-sans">
             {resultsText}
           </p>
@@ -232,38 +282,49 @@ export default function StandardView({ project }: StandardViewProps) {
       {/* Visual Screens & High-Fidelity Mockups Gallery (Aligned with max-w-7xl) */}
       <div className="max-w-7xl mx-auto mt-16 sm:mt-24 border-t-2 border-[var(--ca-ink)]/15 pt-12 sm:pt-16">
         <div className="mb-10 text-left">
-          <p className="ca-hand text-3xl sm:text-4xl text-[var(--ca-ink)]">
-            visual screens & key flows
-          </p>
-          <svg
-            viewBox="0 0 64 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            className="mt-1 h-3.5 w-28 text-[var(--ca-ink)] inline-block"
-            aria-hidden="true"
-          >
-            <path d="M3 4c18-3 40-3 58 0" />
-            <path d="M9 9c14-2.5 32-2.5 46 0" />
-          </svg>
+          <div className="flex items-center gap-3">
+            <span className="ca-mono text-xs font-bold uppercase tracking-widest text-[var(--ca-ink)]/60">
+              04
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-sans tracking-tight uppercase text-[var(--ca-ink)]">
+              {isFigma ? "Visual Screens & Key Flows" : "Technical Architecture & System Views"}
+            </h2>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 w-full">
+        <div className={`w-full ${galleryImages.length === 1 ? 'max-w-4xl mx-auto' : 'grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 lg:gap-12'}`}>
           {galleryImages.map((imgSrc, imgIdx) => {
             const caption = getImageCaption(project.id, imgSrc, imgIdx);
             return (
-              <div key={imgIdx} className="relative group flex flex-col">
+              <div
+                key={imgIdx}
+                onClick={() => setSelectedImageIndex(imgIdx)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedImageIndex(imgIdx);
+                  }
+                }}
+                aria-label={`View ${caption}`}
+                className="relative group flex flex-col cursor-pointer"
+              >
                 <div
-                  className="relative overflow-hidden border-4 bg-[var(--ca-surface)] aspect-[16/10] w-full"
-                  style={{ borderColor: "var(--ca-ink)" }}
+                  className="relative overflow-hidden border border-[var(--ca-ink)]/30 bg-[var(--ca-surface)] aspect-[16/10] w-full"
                 >
                   <img
                     src={imgSrc}
                     alt={caption}
                     loading="lazy"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="w-full h-full object-cover object-top"
                   />
+                  {/* Eye icon overlay on hover (no zoom-in) */}
+                  <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                    <span className="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 bg-[var(--ca-surface)] text-[var(--ca-ink)] border-2 border-[var(--ca-ink)] shadow-lg">
+                      <Eye className="w-5 h-5" strokeWidth={2.2} />
+                    </span>
+                  </div>
                 </div>
 
                 <div className="mt-3 flex items-center justify-between px-1">
@@ -282,25 +343,13 @@ export default function StandardView({ project }: StandardViewProps) {
 
       {/* More Projects Section (Compact Folders - Shows only 2 projects + explore more arrow) */}
       {otherProjects.length > 0 && (
-        <div className="max-w-5xl mx-auto mt-16 sm:mt-24 border-t-2 border-[var(--ca-ink)]/15 pt-12 sm:pt-16">
+        <div className="max-w-7xl mx-auto mt-16 sm:mt-24 border-t-2 border-[var(--ca-ink)]/15 pt-12 sm:pt-16">
           {/* Section Header with Direct Arrow to Main Projects Section */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <p className="ca-hand text-3xl sm:text-4xl text-[var(--ca-ink)]">
-                more projects
-              </p>
-              <svg
-                viewBox="0 0 64 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                className="mt-1 h-3.5 w-28 text-[var(--ca-ink)] inline-block"
-                aria-hidden="true"
-              >
-                <path d="M3 4c18-3 40-3 58 0" />
-                <path d="M9 9c14-2.5 32-2.5 46 0" />
-              </svg>
+              <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--ca-ink)]">
+                More Projects
+              </h2>
             </div>
 
             <Link
@@ -376,7 +425,7 @@ export default function StandardView({ project }: StandardViewProps) {
 
                   {/* Compact Title and Description */}
                   <div className="pt-3 text-left">
-                    <h3 className="text-base sm:text-lg font-bold tracking-tight text-[var(--ca-ink)] font-sans group-hover:text-[var(--scar-color)] transition-colors">
+                    <h3 className="text-base sm:text-lg font-bold tracking-tight text-[var(--ca-ink)] font-sans group-hover:text-[var(--scar-color)] transition-colors uppercase">
                       {other.title}
                     </h3>
                     <p className="mt-1 text-xs text-[var(--ca-ink)]/75 line-clamp-2">
@@ -387,17 +436,82 @@ export default function StandardView({ project }: StandardViewProps) {
               );
             })}
           </div>
+        </div>
+      )}
 
-          {/* Explore More Arrow Button linking directly to main project section */}
-          <div className="mt-10 sm:mt-12 flex justify-center">
-            <Link
-              to="/projects"
-              aria-label="Go to main projects section"
-              className="ca-mono inline-flex items-center gap-3 px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-[var(--text-primary)] bg-[var(--btn-bg)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] border border-[var(--border-color)] shadow-sm [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] transition-all hover:scale-105 active:scale-95 group cursor-pointer"
+      {/* Fullscreen Image Lightbox Modal */}
+      {selectedImageIndex !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Screen image viewer"
+          onClick={handleCloseModal}
+          className="fixed inset-0 z-50 bg-black/92 backdrop-blur-md flex flex-col justify-between p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
+        >
+          {/* Top Bar: Caption, Index Counter & Close Button */}
+          <div
+            className="w-full max-w-7xl mx-auto flex items-center justify-between text-white shrink-0 pb-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3">
+              <span className="ca-mono text-xs sm:text-sm text-white/60 font-mono">
+                0{selectedImageIndex + 1} / 0{galleryImages.length}
+              </span>
+              <span className="text-white/40">•</span>
+              <p className="ca-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
+                {getImageCaption(project.id, galleryImages[selectedImageIndex], selectedImageIndex)}
+              </p>
+            </div>
+
+            <button
+              onClick={handleCloseModal}
+              aria-label="Close viewer"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-none bg-white/10 hover:bg-white/25 text-white border border-white/20 transition-all cursor-pointer active:scale-95"
             >
-              <span>EXPLORE ALL WORK</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" strokeWidth={2.5} />
-            </Link>
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Center: Full-view Image with Left/Right Nav */}
+          <div
+            className="w-full flex-1 flex items-center justify-center relative min-h-0 py-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {galleryImages.length > 1 && (
+              <button
+                onClick={handlePrevImage}
+                aria-label="Previous screen"
+                className="absolute left-2 sm:left-4 z-10 p-2.5 sm:p-3 bg-black/70 hover:bg-black text-white border border-white/20 rounded-none transition-all cursor-pointer shadow-xl active:scale-95"
+              >
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+            )}
+
+            <div className="relative max-w-full max-h-full flex items-center justify-center border-2 border-white/20 bg-black/50 shadow-2xl p-1">
+              <img
+                src={galleryImages[selectedImageIndex]}
+                alt={getImageCaption(project.id, galleryImages[selectedImageIndex], selectedImageIndex)}
+                className="max-w-[92vw] max-h-[78vh] object-contain select-none"
+              />
+            </div>
+
+            {galleryImages.length > 1 && (
+              <button
+                onClick={handleNextImage}
+                aria-label="Next screen"
+                className="absolute right-2 sm:right-4 z-10 p-2.5 sm:p-3 bg-black/70 hover:bg-black text-white border border-white/20 rounded-none transition-all cursor-pointer shadow-xl active:scale-95"
+              >
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+            )}
+          </div>
+
+          {/* Bottom Bar: Instructions */}
+          <div
+            className="w-full max-w-7xl mx-auto flex items-center justify-center text-white/50 text-[11px] font-mono tracking-wide shrink-0 pt-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span>Click outside or press <kbd className="px-1.5 py-0.5 bg-white/10 border border-white/20 rounded text-white text-[10px]">ESC</kbd> to close{galleryImages.length > 1 ? " • Use arrow keys to navigate" : ""}</span>
           </div>
         </div>
       )}
