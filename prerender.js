@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 // Define directories
 const clientDistDir = path.join(__dirname, 'dist');
 const serverBundlePath = path.join(__dirname, 'dist', 'server', 'entry-server.js');
+const SITE_URL = 'https://shw3ta.site';
 
 async function runPrerender() {
   try {
@@ -64,7 +65,7 @@ async function runPrerender() {
             "name": "Shweta Pandya",
             "jobTitle": "Multidisciplinary Builder & Software Engineer",
             "description": "Multidisciplinary problem solver with hands-on experience at the intersection of technology, design, and operations.",
-            "url": "https://pandyashweta.in",
+            "url": SITE_URL,
             "sameAs": [
               "https://www.linkedin.com/in/pandyashweta/",
               "https://github.com/Pandyashweta",
@@ -79,7 +80,7 @@ async function runPrerender() {
           "@type": "CreativeWork",
           "name": proj.title,
           "description": proj.description || (proj.aboutText ? proj.aboutText.slice(0, 200) : 'Detailed project showcase'),
-          "url": `https://pandyashweta.in/projects/${proj.id}`,
+          "url": `${SITE_URL}/projects/${proj.id}`,
           "creator": {
             "@type": "Person",
             "name": "Shweta Pandya"
@@ -93,7 +94,7 @@ async function runPrerender() {
         ? `<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>` 
         : '';
 
-      const canonicalUrl = `https://pandyashweta.in${route.url}`;
+      const canonicalUrl = `${SITE_URL}${route.url === '/' ? '' : route.url}`;
       
       // Build header tags
       const metaTags = `
@@ -106,14 +107,14 @@ async function runPrerender() {
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:title" content="${route.title.replace(/"/g, '&quot;')}" />
     <meta property="og:description" content="${route.desc.replace(/"/g, '&quot;')}" />
-    <meta property="og:image" content="https://pandyashweta.in/assets/projects_thumbnail_new.webp" />
+    <meta property="og:image" content="${SITE_URL}/assets/projects_thumbnail_new.webp" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="${canonicalUrl}" />
     <meta property="twitter:title" content="${route.title.replace(/"/g, '&quot;')}" />
     <meta property="twitter:description" content="${route.desc.replace(/"/g, '&quot;')}" />
-    <meta property="twitter:image" content="https://pandyashweta.in/assets/projects_thumbnail_new.webp" />
+    <meta property="twitter:image" content="${SITE_URL}/assets/projects_thumbnail_new.webp" />
     
     ${schemaScript}
       `;
@@ -149,7 +150,7 @@ async function runPrerender() {
 
     routes.forEach(route => {
       sitemapXml += `  <url>
-    <loc>https://pandyashweta.in${route.url === '/' ? '' : route.url}</loc>
+    <loc>${SITE_URL}${route.url === '/' ? '' : route.url}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${route.url === '/' ? '1.0' : '0.8'}</priority>
@@ -166,7 +167,7 @@ async function runPrerender() {
 Allow: /
 Disallow: /dist/
 
-Sitemap: https://pandyashweta.in/sitemap.xml
+Sitemap: ${SITE_URL}/sitemap.xml
 `;
     fs.writeFileSync(path.join(clientDistDir, 'robots.txt'), robotsTxt);
     console.log('✓ Generated robots.txt');
