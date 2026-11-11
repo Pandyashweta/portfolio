@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   const navigate = useNavigate();
 
   return (
-    <main className="w-full min-h-screen bg-[var(--bg-primary)] flex items-center justify-center p-6 relative overflow-hidden text-center z-10 transition-colors duration-300">
+    <main id="main-content" className="w-full min-h-screen bg-[var(--bg-primary)] flex items-center justify-center p-6 relative overflow-hidden text-center z-10 transition-colors duration-300">
       <div className="fixed top-5 right-5 sm:top-7 sm:right-7 z-30">
         <ThemeToggle />
       </div>
@@ -34,7 +34,7 @@ export default function NotFoundPage() {
           <button
             onClick={() => navigate("/")}
             aria-label="Back to home"
-            className="inline-flex items-center justify-center w-10 h-10 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 active:scale-95 rounded-full transition-all shadow-md shadow-black/20 cursor-pointer"
+            className="inline-flex items-center justify-center w-10 h-10 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 active:scale-95 rounded-full transition-all shadow-md shadow-black/20 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)]"
           >
             <ArrowLeft className="w-4 h-4 text-[var(--bg-primary)]" strokeWidth={2.5} />
           </button>

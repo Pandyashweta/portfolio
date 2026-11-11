@@ -21,7 +21,7 @@ export default function ProjectsPage() {
   const sub = searchParams.get("sub");
 
   return (
-    <main className="w-full min-h-screen md:h-screen md:max-h-screen md:overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] text-left transition-colors duration-300 relative z-10 flex flex-col justify-between selection:bg-[var(--text-primary)] selection:text-[var(--bg-primary)]">
+    <main id="main-content" className="w-full min-h-screen md:h-screen md:max-h-screen md:overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] text-left transition-colors duration-300 relative z-10 flex flex-col justify-between selection:bg-[var(--text-primary)] selection:text-[var(--bg-primary)]">
       {/* Top Navigation Bar: Aligned precisely with folder ends and lowered to match home button position */}
       <div className="w-full px-4 sm:px-6 lg:px-8 pt-6 sm:pt-7 lg:pt-8 shrink-0">
         <div className="w-full max-w-6xl xl:max-w-7xl mx-auto flex items-center justify-between">
@@ -48,7 +48,7 @@ export default function ProjectsPage() {
               onClick={handleBack}
               aria-label={backLabel}
               title={backLabel}
-              className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none shrink-0"
+              className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] shrink-0"
             >
               <svg
                 viewBox="0 0 36 36"

@@ -32,8 +32,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="w-9 h-9 flex items-center justify-center rounded-full bg-[var(--bg-card)] border border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--text-primary)] active:scale-95 transition-all duration-300 ease-out cursor-pointer relative overflow-hidden shadow-sm shrink-0"
-      aria-label="Toggle theme"
+      className="w-9 h-9 flex items-center justify-center rounded-full bg-[var(--bg-card)] border border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] active:scale-95 transition-all duration-300 ease-out cursor-pointer relative overflow-hidden shadow-sm shrink-0"
+      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
     >
       {/* Moon Icon (Visible in Dark Mode) */}
       <div

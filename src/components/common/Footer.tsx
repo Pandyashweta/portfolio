@@ -65,7 +65,11 @@ export default function Footer({ compact = false }: FooterProps) {
           . Feel free to explore my work or reach out at{" "}
           <a
             href="mailto:pandyashweta.in@gmail.com"
-            className="font-semibold text-[#800020] hover:underline underline-offset-2 transition-colors duration-200"
+            className={`font-semibold underline underline-offset-2 transition-colors duration-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-current ${
+              isWhiteTheme
+                ? "text-[#800020] hover:text-[#990022]"
+                : "text-[#f08b9e] hover:text-[#f8a5b5]"
+            }`}
           >
             pandyashweta.in@gmail.com
           </a>

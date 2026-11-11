@@ -19,13 +19,13 @@ export default function ProjectDetail() {
 
   if (!project) {
     return (
-      <main className="w-full h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex flex-col items-center justify-center text-center px-6">
+      <main id="main-content" className="w-full h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex flex-col items-center justify-center text-center px-6">
         <h1 className="text-3xl font-bold mb-4 ca-mono">Project not found</h1>
         <button
           onClick={() => navigate("/projects")}
           aria-label="Back to projects"
           title="Back to projects"
-          className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none shrink-0"
+          className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] shrink-0"
         >
           <svg
             viewBox="0 0 36 36"

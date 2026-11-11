@@ -91,14 +91,14 @@ export default function StandardView({ project }: StandardViewProps) {
   }, [selectedImageIndex, handleCloseModal, handlePrevImage, handleNextImage]);
 
   return (
-    <main className="w-full min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] text-left transition-colors duration-300 relative z-10 px-4 pb-24 pt-6 sm:px-8 sm:pt-8 lg:px-12 xl:px-16 selection:bg-[var(--text-primary)] selection:text-[var(--bg-primary)]">
+    <main id="main-content" className="w-full min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] text-left transition-colors duration-300 relative z-10 px-4 pb-24 pt-6 sm:px-8 sm:pt-8 lg:px-12 xl:px-16 selection:bg-[var(--text-primary)] selection:text-[var(--bg-primary)]">
       {/* Top Navigation Bar perfectly aligned with the max-w-7xl content grid */}
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between pb-8 sm:pb-10">
         <button
           onClick={() => navigate(backCategoryUrl)}
           aria-label={`Back to ${backCategoryLabel}`}
           title={`Back to ${backCategoryLabel}`}
-          className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none shrink-0"
+          className="relative w-9 h-9 group flex items-center justify-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] shrink-0"
         >
           <svg
             viewBox="0 0 36 36"
@@ -121,7 +121,7 @@ export default function StandardView({ project }: StandardViewProps) {
         <div className="flex items-center gap-4 sm:gap-6">
           <Link
             to="/"
-            className="ca-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] hover:opacity-75 transition-opacity"
+            className="ca-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] hover:opacity-75 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)]"
           >
             Home
           </Link>
@@ -242,7 +242,7 @@ export default function StandardView({ project }: StandardViewProps) {
                   href={project.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="ca-mono inline-flex items-center gap-2 bg-[var(--ca-ink)] text-[var(--ca-surface)] px-4 py-2.5 text-xs font-bold uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] shadow-md"
+                  className="ca-mono inline-flex items-center gap-2 bg-[var(--ca-ink)] text-[var(--ca-surface)] px-4 py-2.5 text-xs font-bold uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-ink)] focus-visible:ring-offset-2"
                 >
                   <span>{project.url.includes("figma") ? "Figma File" : project.url.includes("github") ? "GitHub Repo" : "Live Site"}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -255,7 +255,7 @@ export default function StandardView({ project }: StandardViewProps) {
                   href={res.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="ca-mono inline-flex items-center gap-2 bg-[var(--ca-chrome)] text-[var(--ca-ink)] border border-[var(--ca-ink)]/20 px-4 py-2.5 text-xs font-bold uppercase tracking-wider hover:bg-[var(--ca-ink)] hover:text-[var(--ca-surface)] active:scale-95 transition-all [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] shadow-sm"
+                  className="ca-mono inline-flex items-center gap-2 bg-[var(--ca-chrome)] text-[var(--ca-ink)] border border-[var(--ca-ink)]/20 px-4 py-2.5 text-xs font-bold uppercase tracking-wider hover:bg-[var(--ca-ink)] hover:text-[var(--ca-surface)] active:scale-95 transition-all [clip-path:polygon(0_28%,12%_0,100%_0,100%_100%,0_100%)] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-ink)] focus-visible:ring-offset-2"
                 >
                   <span>{res.label}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -296,19 +296,11 @@ export default function StandardView({ project }: StandardViewProps) {
           {galleryImages.map((imgSrc, imgIdx) => {
             const caption = getImageCaption(project.id, imgSrc, imgIdx);
             return (
-              <div
+              <button
                 key={imgIdx}
+                type="button"
                 onClick={() => setSelectedImageIndex(imgIdx)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelectedImageIndex(imgIdx);
-                  }
-                }}
-                aria-label={`View ${caption}`}
-                className="relative group flex flex-col cursor-pointer"
+                className="relative group flex flex-col cursor-pointer text-left w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-ink)] focus-visible:ring-offset-4"
               >
                 <div
                   className="relative overflow-hidden border border-[var(--ca-ink)]/30 bg-[var(--ca-surface)] aspect-[16/10] w-full"
@@ -327,7 +319,7 @@ export default function StandardView({ project }: StandardViewProps) {
                   </div>
                 </div>
 
-                <div className="mt-3 flex items-center justify-between px-1">
+                <div className="mt-3 flex items-center justify-between px-1 w-full">
                   <p className="ca-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-[var(--ca-ink)]">
                     {caption}
                   </p>
@@ -335,7 +327,7 @@ export default function StandardView({ project }: StandardViewProps) {
                     0{imgIdx + 1}
                   </span>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -376,7 +368,7 @@ export default function StandardView({ project }: StandardViewProps) {
                 <Link
                   key={other.id}
                   to={`/projects/${other.id}`}
-                  className="group flex flex-col text-left cursor-pointer transition-all duration-300 hover:-translate-y-1"
+                  className="group flex flex-col text-left cursor-pointer transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ca-ink)] focus-visible:ring-offset-4"
                 >
                   {/* Compact Folder Tab with Project Brand Theme Color */}
                   <div className="flex">
@@ -466,7 +458,7 @@ export default function StandardView({ project }: StandardViewProps) {
             <button
               onClick={handleCloseModal}
               aria-label="Close viewer"
-              className="inline-flex items-center justify-center w-8 h-8 rounded-none bg-white/10 hover:bg-white/25 text-white border border-white/20 transition-all cursor-pointer active:scale-95"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-none bg-white/10 hover:bg-white/25 text-white border border-white/20 transition-all cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               <X className="w-4 h-4" />
             </button>
@@ -481,7 +473,7 @@ export default function StandardView({ project }: StandardViewProps) {
               <button
                 onClick={handlePrevImage}
                 aria-label="Previous screen"
-                className="absolute left-2 sm:left-4 z-10 p-2.5 sm:p-3 bg-black/70 hover:bg-black text-white border border-white/20 rounded-none transition-all cursor-pointer shadow-xl active:scale-95"
+                className="absolute left-2 sm:left-4 z-10 p-2.5 sm:p-3 bg-black/70 hover:bg-black text-white border border-white/20 rounded-none transition-all cursor-pointer shadow-xl active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
@@ -499,7 +491,7 @@ export default function StandardView({ project }: StandardViewProps) {
               <button
                 onClick={handleNextImage}
                 aria-label="Next screen"
-                className="absolute right-2 sm:right-4 z-10 p-2.5 sm:p-3 bg-black/70 hover:bg-black text-white border border-white/20 rounded-none transition-all cursor-pointer shadow-xl active:scale-95"
+                className="absolute right-2 sm:right-4 z-10 p-2.5 sm:p-3 bg-black/70 hover:bg-black text-white border border-white/20 rounded-none transition-all cursor-pointer shadow-xl active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>

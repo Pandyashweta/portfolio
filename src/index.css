@@ -85,7 +85,7 @@
   --border-hover: #262626;
   --text-primary: #ffffff;
   --text-secondary: #9496a1;
-  --text-muted: #626575;
+  --text-muted: #8e92a4;
   --selection-bg: #ffffff;
   --selection-text: #000000;
   --btn-bg: #141414;
@@ -135,7 +135,7 @@
   --border-hover: #cbd5e1;
   --text-primary: #09090b;
   --text-secondary: #71717a;
-  --text-muted: #a1a1aa;
+  --text-muted: #52525b;
   --selection-bg: #09090b;
   --selection-text: #ffffff;
   --btn-bg: #f4f4f5;
@@ -224,4 +224,22 @@ html, body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(120, 120, 120, 0.45);
+}
+
+/* Accessible focus rings for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

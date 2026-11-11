@@ -83,8 +83,7 @@ export default function Showcase({
           {/* Left Category: UI/UX Projects (Manila Folder Shape) */}
           <button
             onClick={() => onSelectCategory && onSelectCategory("uiux")}
-            aria-label="Open UI/UX Projects folder"
-            className="group flex flex-col text-left cursor-pointer transition-all duration-300 focus:outline-none hover:-translate-y-1.5"
+            className="group flex flex-col text-left cursor-pointer transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)] hover:-translate-y-1.5"
           >
             {/* Manila Folder Graphic Container */}
             <div className="w-full relative">
@@ -112,9 +111,9 @@ export default function Showcase({
 
             {/* Title & Description Below the Folder */}
             <div className="mt-3 sm:mt-4 text-left flex flex-col items-start w-full">
-              <h3 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--text-primary)] group-hover:text-[var(--scar-color)] transition-colors">
+              <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--text-primary)] group-hover:text-[var(--scar-color)] transition-colors">
                 UI/UX DESIGN
-              </h3>
+              </h2>
               <p className="mt-1.5 text-xs sm:text-[13px] lg:text-sm text-[var(--text-secondary)] leading-relaxed">
                 Figma design systems, mobile experiences, and interactive prototypes.
               </p>
@@ -124,8 +123,7 @@ export default function Showcase({
           {/* Right Category: Developer (Manila Folder Shape) */}
           <button
             onClick={() => onSelectCategory && onSelectCategory("coding")}
-            aria-label="Open Developer folder"
-            className="group flex flex-col text-left cursor-pointer transition-all duration-300 focus:outline-none hover:-translate-y-1.5"
+            className="group flex flex-col text-left cursor-pointer transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)] hover:-translate-y-1.5"
           >
             {/* Manila Folder Graphic Container */}
             <div className="w-full relative">
@@ -153,9 +151,9 @@ export default function Showcase({
 
             {/* Title & Description Below the Folder */}
             <div className="mt-3 sm:mt-4 text-left flex flex-col items-start w-full">
-              <h3 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--text-primary)] group-hover:text-[var(--scar-color)] transition-colors">
+              <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight uppercase text-[var(--text-primary)] group-hover:text-[var(--scar-color)] transition-colors">
                 DEVELOPER
-              </h3>
+              </h2>
               <p className="mt-1.5 text-xs sm:text-[13px] lg:text-sm text-[var(--text-secondary)] leading-relaxed">
                 Workflow automation engines, image pipelines, and full-stack solutions.
               </p>
@@ -176,8 +174,7 @@ export default function Showcase({
             <button
               key={folder.id}
               onClick={() => onSelectSubCategory && onSelectSubCategory(folder.id)}
-              aria-label={`Open ${folder.title} folder`}
-              className="group flex flex-col text-left cursor-pointer transition-all duration-300 focus:outline-none hover:-translate-y-1.5"
+              className="group flex flex-col text-left cursor-pointer transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-primary)] hover:-translate-y-1.5"
             >
               {/* Manila Folder Graphic Container */}
               <div className="w-full relative">
@@ -205,9 +202,9 @@ export default function Showcase({
 
               {/* Title & Description Below the Folder */}
               <div className="mt-3 sm:mt-4 text-left flex flex-col items-start w-full">
-                <h3 className="text-xl sm:text-2xl font-bold font-sans tracking-tight uppercase text-[var(--text-primary)] group-hover:text-[var(--scar-color)] transition-colors">
+                <h2 className="text-xl sm:text-2xl font-bold font-sans tracking-tight uppercase text-[var(--text-primary)] group-hover:text-[var(--scar-color)] transition-colors">
                   {folder.title}
-                </h3>
+                </h2>
                 <p className="mt-1.5 text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed line-clamp-2">
                   {folder.description}
                 </p>
@@ -270,7 +267,7 @@ export default function Showcase({
           <div className="pt-2">
             <button
               onClick={() => onSelectSubCategory && onSelectSubCategory(null)}
-              className="ca-mono inline-flex items-center gap-2 border-b-2 border-white pb-0.5 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] transition-all hover:text-[var(--scar-color)] hover:border-[var(--scar-color)] cursor-pointer text-white"
+              className="ca-mono inline-flex items-center gap-2 border-b-2 border-white pb-0.5 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] transition-all hover:text-[var(--scar-color)] hover:border-[var(--scar-color)] cursor-pointer text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
             >
               <span>← BACK TO DEVELOPER FOLDERS</span>
             </button>
@@ -300,7 +297,7 @@ export default function Showcase({
             <button
               key={proj.id}
               onClick={() => setActiveProjectIndex(idx)}
-              className={`ca-mono inline-flex items-center gap-2.5 py-2.5 sm:py-3 pr-8 sm:pr-12 text-xs sm:text-sm font-bold uppercase tracking-[0.18em] transition-all cursor-pointer ${
+              className={`ca-mono inline-flex items-center gap-2.5 py-2.5 sm:py-3 pr-8 sm:pr-12 text-xs sm:text-sm font-bold uppercase tracking-[0.18em] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 ${
                 isFirst
                   ? "pl-5 sm:pl-7 [clip-path:polygon(0_0,calc(100%-28px)_0,100%_100%,0_100%)]"
                   : "pl-7 sm:pl-9 [clip-path:polygon(28px_0,calc(100%-28px)_0,100%_100%,0_100%)]"
@@ -383,13 +380,14 @@ export default function Showcase({
             <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-6 sm:gap-7">
               <Link
                 to={detailUrl}
-                className="ca-mono inline-flex items-center gap-2 border-b-2 pb-0.5 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] transition-all hover:translate-x-1 active:scale-95 cursor-pointer group"
+                className="ca-mono inline-flex items-center gap-2 border-b-2 pb-0.5 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] transition-all hover:translate-x-1 active:scale-95 cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2"
                 style={{
                   borderColor: theme.borderColor,
                   color: theme.text,
                 }}
               >
                 <span>VIEW PROJECT DETAILS</span>
+                <span className="sr-only"> for {currentProj.title}</span>
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
