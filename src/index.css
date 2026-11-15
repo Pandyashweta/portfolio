@@ -125,6 +125,8 @@
   --footer-dot-color: #800020;
   --footer-dot-glow: rgba(128, 0, 32, 0.35);
   --footer-shadow: none;
+  --open-to-email: #f08b9e;
+  --open-to-email-hover: #f8a5b5;
 }
 
 .theme-white {
@@ -175,6 +177,8 @@
   --footer-dot-color: #800020;
   --footer-dot-glow: rgba(128, 0, 32, 0.65);
   --footer-shadow: none;
+  --open-to-email: #800020;
+  --open-to-email-hover: #990022;
 }
 
 /* Universal selection styling based on theme */
