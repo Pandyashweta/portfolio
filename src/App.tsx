@@ -21,6 +21,7 @@ export default function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/category/:category" element={<ProjectsPage />} />
         <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+        <Route path="/creative" element={<NotFoundPage />} />
         <Route path="/resume" element={<ResumeRedirect />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

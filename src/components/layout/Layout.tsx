@@ -13,10 +13,3 @@ export default function Layout() {
     </div>
   );
 }
-
-export interface LayoutContext {
-  leftColRef?: any;
-  rightColRef?: any;
-  handleScroll?: () => void;
-  scrollToTop?: () => void;
-}

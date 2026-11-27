@@ -17,9 +17,17 @@ export function getImageCaption(projectId: string, src: string, idx: number): st
   if (lowerSrc.includes("wishlist")) return "Wishlist, Checkout & Order Placed";
   if (lowerSrc.includes("subscribe")) return "Subscribe & Error";
 
-  // Coding Projects captions
-  if (lowerSrc.includes("futuristic_industrial") || lowerSrc.includes("automation")) return "Workflow Pipeline & Orchestration Architecture";
-  if (lowerSrc.includes("sculptural_red") || lowerSrc.includes("imaging")) return "Cellular Microscopy Analysis & Automated Segmentation";
+  // Developer Projects captions
+  if (lowerSrc.includes("calendar-q-hero")) return "Platform Overview";
+  if (lowerSrc.includes("calendar-q-app")) return "Full Month View";
+  if (lowerSrc.includes("calendar-q-week")) return "Dual-Timezone Week View";
+  if (lowerSrc.includes("calendar-q-astronomy")) return "Astronomy & Celestial Almanac";
+  if (lowerSrc.includes("calendar-q-converter")) return "Universal Date Converter & Side Panel";
+  if (lowerSrc.includes("calendar-q-widget")) return "Desktop & Mobile Offline Widgets";
+  if (lowerSrc.includes("flowstate-hero")) return "Editorial Landing & Live Workspace Preview";
+  if (lowerSrc.includes("flowstate-workflows")) return "Voice Capture, Grounding & Audit Receipts";
+  if (lowerSrc.includes("flowstate-waitlist")) return "Early Access Waitlist & 3D Shader Emblem";
+  if (lowerSrc.includes("flowstate-signin")) return "Workspace Sign-In & Core Capabilities";
 
   return `Screen ${idx + 1}`;
 }
