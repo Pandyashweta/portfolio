@@ -249,3 +249,7 @@ html, body {
 .animate-row-b {
   animation: four-oh-four-row-b 6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
+
+.theme-white .brand-favicon-mark {
+  filter: invert(1);
+}

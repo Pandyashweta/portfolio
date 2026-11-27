@@ -19,8 +19,15 @@ export function getImageCaption(projectId: string, src: string, idx: number): st
 
   // Developer Projects captions
   if (lowerSrc.includes("calendar-q-hero")) return "Platform Overview";
-  if (lowerSrc.includes("calendar-q-app")) return "Interactive Month & Agenda View";
-  if (lowerSrc.includes("flowstate-hero")) return "Voice Command Center & Walkthrough";
+  if (lowerSrc.includes("calendar-q-app")) return "Full Month View";
+  if (lowerSrc.includes("calendar-q-week")) return "Dual-Timezone Week View";
+  if (lowerSrc.includes("calendar-q-astronomy")) return "Astronomy & Celestial Almanac";
+  if (lowerSrc.includes("calendar-q-converter")) return "Universal Date Converter & Side Panel";
+  if (lowerSrc.includes("calendar-q-widget")) return "Desktop & Mobile Offline Widgets";
+  if (lowerSrc.includes("flowstate-hero")) return "Editorial Landing & Live Workspace Preview";
+  if (lowerSrc.includes("flowstate-workflows")) return "Voice Capture, Grounding & Audit Receipts";
+  if (lowerSrc.includes("flowstate-waitlist")) return "Early Access Waitlist & 3D Shader Emblem";
+  if (lowerSrc.includes("flowstate-signin")) return "Workspace Sign-In & Core Capabilities";
 
   return `Screen ${idx + 1}`;
 }

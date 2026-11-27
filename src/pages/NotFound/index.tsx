@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "../../components/common/ThemeToggle";
+import BrandMark from "../../components/common/BrandMark";
 import Footer from "../../components/common/Footer";
 
 const ROWS = 7;
@@ -34,13 +35,7 @@ export default function NotFoundPage() {
             aria-label="Primary navigation"
             className="hidden lg:flex items-center gap-5 hanssen-cutout-tl absolute top-0 left-0 z-30 pl-2 pr-4 pt-1.5 pb-2.5"
           >
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-[14px] font-normal tracking-tight text-[var(--text-primary)] hover:opacity-65 transition-opacity"
-            >
-              <span className="inline-block w-3.5 h-3.5 rounded-full border-[2.5px] border-[var(--text-primary)] shrink-0" />
-              <span>shweta</span>
-            </Link>
+            <BrandMark className="hover:opacity-65 transition-opacity" />
 
             <div className="flex items-center gap-4">
               {navLinks.map((item) =>
@@ -71,13 +66,7 @@ export default function NotFoundPage() {
 
           {/* Mobile / Tablet Top-Left Brand + Toggle Cutout */}
           <div className="flex lg:hidden items-center gap-3 hanssen-cutout-tl absolute top-0 left-0 z-30 pl-1.5 pr-3.5 pt-1 pb-2">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-[14px] font-normal tracking-tight text-[var(--text-primary)]"
-            >
-              <span className="inline-block w-3.5 h-3.5 rounded-full border-[2.5px] border-[var(--text-primary)] shrink-0" />
-              <span>shweta</span>
-            </Link>
+            <BrandMark />
             <ThemeToggle />
           </div>
 
