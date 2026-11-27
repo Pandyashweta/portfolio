@@ -32,33 +32,38 @@ async function runPrerender() {
     const routes = [
       {
         url: '/',
-        title: 'Shweta Pandya | Multidisciplinary Builder & Software Engineer',
+        title: 'pandyashweta',
         desc: 'Portfolio of Shweta Pandya. Multidisciplinary builder with hands-on experience across web development, business operations, data analysis, and UI/UX design.',
-        type: 'website'
+        type: 'website',
+        includeInSitemap: true
       },
       {
         url: '/projects',
-        title: 'Projects & Work | Shweta Pandya',
-        desc: 'Showcase of software engineering, developer tools, data analytics, and interactive UI/UX design projects created by Shweta Pandya.',
-        type: 'website'
+        title: 'Work',
+        desc: 'Showcase of software engineering, developer tools, and interactive UI/UX design projects created by Shweta Pandya.',
+        type: 'website',
+        includeInSitemap: true
       },
       {
-        url: '/projects/category/coding',
-        title: 'Developer Projects | Shweta Pandya',
-        desc: 'Developer, full-stack, data analytics, and automation engineering projects built by Shweta Pandya.',
-        type: 'website'
+        url: '/creative',
+        title: '404',
+        desc: '404 — Page not found.',
+        type: 'website',
+        includeInSitemap: false
       },
       {
-        url: '/resume',
-        title: 'Resume | Shweta Pandya',
-        desc: 'Professional resume and background of Shweta Pandya — software development, business analysis, operations, and design.',
-        type: 'profile'
+        url: '/404',
+        title: '404',
+        desc: '404 — Page not found.',
+        type: 'website',
+        includeInSitemap: false,
+        outputFile: '404.html'
       }
     ];
 
     // Add dynamic project detail routes
     projectList.forEach(proj => {
-      const title = `${proj.title} | Projects | Shweta Pandya`;
+      const title = proj.title;
       const desc = proj.description || (proj.aboutText ? proj.aboutText.slice(0, 160) : 'Detailed project review and showcase.');
       routes.push({
         url: `/projects/${proj.id}`,
@@ -66,7 +71,8 @@ async function runPrerender() {
         desc,
         type: 'article',
         image: proj.image,
-        project: proj
+        project: proj,
+        includeInSitemap: true
       });
     });
 
@@ -95,8 +101,7 @@ async function runPrerender() {
               "sameAs": [
                 "https://www.linkedin.com/in/pandyashweta/",
                 "https://github.com/Pandyashweta",
-                "https://www.figma.com/@pandyashweta",
-                "https://portfolio.pandyashweta.com"
+                "https://www.figma.com/@pandyashweta"
               ],
               "knowsAbout": [
                 "Web Development",
@@ -192,14 +197,18 @@ async function runPrerender() {
       const canonicalUrl = `${SITE_URL}${route.url === '/' ? '' : route.url}`;
       const ogImageUrl = route.image ? `${SITE_URL}${route.image}` : `${SITE_URL}/og-image.png`;
       const ogType = route.type || 'website';
+      const robotsContent = route.includeInSitemap ? 'index, follow' : 'noindex, nofollow';
+      const googlebotContent = route.includeInSitemap
+        ? 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+        : 'noindex, nofollow';
       
       // Build header tags
       const metaTags = `
     <title>${route.title}</title>
     <meta name="description" content="${route.desc.replace(/"/g, '&quot;')}" />
     <link rel="canonical" href="${canonicalUrl}" />
-    <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="robots" content="${robotsContent}" />
+    <meta name="googlebot" content="${googlebotContent}" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content="Shweta Pandya Portfolio" />
@@ -233,7 +242,9 @@ async function runPrerender() {
       html = html.replace('</head>', `${metaTags}\n  </head>`);
 
       // 5. Write output file
-      if (route.url === '/') {
+      if (route.outputFile) {
+        fs.writeFileSync(path.join(clientDistDir, route.outputFile), html);
+      } else if (route.url === '/') {
         fs.writeFileSync(indexHtmlPath, html);
       } else {
         const routeDir = path.join(clientDistDir, route.url);
@@ -250,7 +261,7 @@ async function runPrerender() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
 
-    routes.forEach(route => {
+    routes.filter(r => r.includeInSitemap).forEach(route => {
       sitemapXml += `  <url>
     <loc>${SITE_URL}${route.url === '/' ? '' : route.url}</loc>
     <lastmod>${today}</lastmod>

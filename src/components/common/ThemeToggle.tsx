@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
-import { Sun, Moon } from "lucide-react";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("portfolio_theme_v2");
-      if (saved === "light" || saved === "dark") return saved;
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [mounted, setMounted] = useState(false);
+
+  // Sync with saved preference on client mount to prevent SSR hydration mismatch
+  useEffect(() => {
+    const saved = localStorage.getItem("portfolio_theme_v2");
+    if (saved === "light" || saved === "dark") {
+      setTheme(saved);
     }
-    return "dark"; // Default is dark (Pure Black mode)
-  });
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
+    if (!mounted) return;
     const root = document.documentElement;
     if (theme === "light") {
       root.classList.add("theme-white");
@@ -20,10 +24,8 @@ export default function ThemeToggle() {
       root.classList.add("dark");
     }
     localStorage.setItem("portfolio_theme_v2", theme);
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("portfolio-theme-change", { detail: theme }));
-    }
-  }, [theme]);
+    window.dispatchEvent(new CustomEvent("portfolio-theme-change", { detail: theme }));
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
@@ -31,31 +33,16 @@ export default function ThemeToggle() {
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
-      className="w-9 h-9 flex items-center justify-center rounded-full bg-[var(--bg-card)] border border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] active:scale-95 transition-all duration-300 ease-out cursor-pointer relative overflow-hidden shadow-sm shrink-0"
       aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+      className="relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-[var(--bg-card)] border border-[var(--border-color)] p-0.5 transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]"
     >
-      {/* Moon Icon (Visible in Dark Mode) */}
-      <div
-        className={`transition-all duration-300 ease-out transform ${
-          theme === "light"
-            ? "rotate-90 scale-0 opacity-0"
-            : "rotate-0 scale-100 opacity-100"
+      <span
+        className={`inline-block h-3.5 w-3.5 rounded-full bg-[var(--text-primary)] transition-transform duration-200 ${
+          theme === "light" ? "translate-x-4" : "translate-x-0"
         }`}
-      >
-        <Moon className="w-4 h-4 fill-current text-[var(--text-primary)]" />
-      </div>
-
-      {/* Sun Icon (Visible in Light Mode) */}
-      <div
-        className={`absolute transition-all duration-300 ease-out transform ${
-          theme === "light"
-            ? "rotate-0 scale-100 opacity-100"
-            : "-rotate-90 scale-0 opacity-0"
-        }`}
-      >
-        <Sun className="w-4 h-4 fill-current text-[var(--text-primary)]" />
-      </div>
+      />
     </button>
   );
 }

@@ -17,9 +17,10 @@ export function getImageCaption(projectId: string, src: string, idx: number): st
   if (lowerSrc.includes("wishlist")) return "Wishlist, Checkout & Order Placed";
   if (lowerSrc.includes("subscribe")) return "Subscribe & Error";
 
-  // Coding Projects captions
-  if (lowerSrc.includes("futuristic_industrial") || lowerSrc.includes("automation")) return "Workflow Pipeline & Orchestration Architecture";
-  if (lowerSrc.includes("sculptural_red") || lowerSrc.includes("imaging")) return "Cellular Microscopy Analysis & Automated Segmentation";
+  // Developer Projects captions
+  if (lowerSrc.includes("calendar-q-hero")) return "Platform Overview";
+  if (lowerSrc.includes("calendar-q-app")) return "Interactive Month & Agenda View";
+  if (lowerSrc.includes("flowstate-hero")) return "Voice Command Center & Walkthrough";
 
   return `Screen ${idx + 1}`;
 }
